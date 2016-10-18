@@ -33,6 +33,24 @@ namespace TDD_Katas_BuyHarryPotterBooks.Tests
             //3. Assert
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod()]
+        public void BuyBooksPriceTest_第1集與第2集各買一本_總價190元_測試5啪折扣()
+        {
+            //1. Arrange
+            var BooksNumbers = new List<int> { 1, 1, 0, 0, 0 };
+
+            var target = new TDD_Katas_BuyHarryPotterBooks.CalculatorPrice();
+
+            double expected = 190;
+
+            //2. Act
+            double actual;
+            actual = target.BuyBooksPrice(BooksNumbers);
+
+            //3. Assert
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
 
