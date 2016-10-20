@@ -10,19 +10,21 @@ namespace TDD_Katas_BuyHarryPotterBooks
     {
         const double OneBookPrice = 100;
         const double DISCOUNTS_5 = 0.05;
+        const double DISCOUNTS_10 = 0.1;
 
         public double BuyBooksPrice(List<int> BooksNumbers)
         {
             double price = 0;
-            int DifferentEpisode = 0;
-
-            CalculatorTotalPrice(BooksNumbers, ref price, ref DifferentEpisode);
+            
+            CalculatorTotalPrice(BooksNumbers, ref price);
 
             return price;
         }
 
-        private static void CalculatorTotalPrice(List<int> BooksNumbers, ref double price, ref int DifferentEpisode)
+        private static void CalculatorTotalPrice(List<int> BooksNumbers, ref double price)
         {
+            int DifferentEpisode = 0;
+
             for (int i = 0; i < BooksNumbers.Count; i++)
             {
                 if (BooksNumbers[i] > 0)
@@ -31,10 +33,23 @@ namespace TDD_Katas_BuyHarryPotterBooks
                     DifferentEpisode++;
                 }
             }
-            if (DifferentEpisode == 2)
+            price = CalculatorDiscounts(price, DifferentEpisode);            
+        }
+
+        private static double CalculatorDiscounts(double price, int DifferentEpisode)
+        {
+            switch (DifferentEpisode)
             {
-                price = price * (1 - DISCOUNTS_5);
+                case 2:
+                    price = price * (1 - DISCOUNTS_5);
+                    break;
+                case 3:
+                    price = price * (1 - DISCOUNTS_10);
+                    break;
+                default:
+                    break;
             }
+            return price;
         }
     }
 }
