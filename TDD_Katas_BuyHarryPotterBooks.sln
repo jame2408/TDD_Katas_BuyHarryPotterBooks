@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TDD_Katas_BuyHarryPotterBooks", "TDD_Katas_BuyHarryPotterBooks\TDD_Katas_BuyHarryPotterBooks.csproj", "{A412D5E1-0455-451A-AB2D-66441D104FA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculatorPrice", "CalculatorPrice\CalculatorPrice.csproj", "{3D980CA8-D3BA-4383-A294-877F82011976}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TDD_Katas_BuyHarryPotterBooks.Test", "TDD_Katas_BuyHarryPotterBooks.Test\TDD_Katas_BuyHarryPotterBooks.Test.csproj", "{3D980CA8-D3BA-4383-A294-877F82011976}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
