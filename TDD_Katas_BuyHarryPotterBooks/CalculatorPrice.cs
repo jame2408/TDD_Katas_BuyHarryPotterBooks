@@ -31,11 +31,21 @@ namespace TDD_Katas_BuyHarryPotterBooks
             {
                 if (BooksNumbers[i] > 0)
                 {
-                    price += BooksNumbers[i] * OneBookPrice;
+                    price += OneBookPrice;
                     DifferentEpisode++;
                 }
             }
-            price = CalculatorDiscounts(price, DifferentEpisode);            
+
+            price = CalculatorDiscounts(price, DifferentEpisode);
+
+            for (int i = 0; i < BooksNumbers.Count; i++)
+            {
+                if (BooksNumbers[i] > 1)
+                {
+                    price += ( BooksNumbers[i] - 1 ) * OneBookPrice;
+                    DifferentEpisode++;
+                }
+            }
         }
 
         private static double CalculatorDiscounts(double price, int DifferentEpisode)
