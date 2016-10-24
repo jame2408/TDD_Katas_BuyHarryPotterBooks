@@ -42,8 +42,7 @@ namespace TDD_Katas_BuyHarryPotterBooks
             {
                 if (BooksNumbers[i] > 1)
                 {
-                    price += ( BooksNumbers[i] - 1 ) * OneBookPrice;
-                    DifferentEpisode++;
+                    price += ( BooksNumbers[i] - 1 ) * OneBookPrice;                    
                 }
             }
         }
