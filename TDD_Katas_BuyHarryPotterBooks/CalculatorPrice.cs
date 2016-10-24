@@ -55,6 +55,10 @@ namespace TDD_Katas_BuyHarryPotterBooks
                     price = price * (1 - DISCOUNTS_25);
                     break;
                 default:
+                    if (DifferentEpisode >= 6)
+                    {
+                        price = price * (1 - DISCOUNTS_25);
+                    }
                     break;
             }
             return price;
