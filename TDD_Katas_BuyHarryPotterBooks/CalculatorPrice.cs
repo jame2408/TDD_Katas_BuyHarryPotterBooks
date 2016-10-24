@@ -12,6 +12,7 @@ namespace TDD_Katas_BuyHarryPotterBooks
         const double DISCOUNTS_5 = 0.05;
         const double DISCOUNTS_10 = 0.1;
         const double DISCOUNTS_20 = 0.2;
+        const double DISCOUNTS_25 = 0.25;
 
         public double BuyBooksPrice(List<int> BooksNumbers)
         {
@@ -49,6 +50,9 @@ namespace TDD_Katas_BuyHarryPotterBooks
                     break;
                 case 4:
                     price = price * (1 - DISCOUNTS_20);
+                    break;
+                case 5:
+                    price = price * (1 - DISCOUNTS_25);
                     break;
                 default:
                     break;
