@@ -1,76 +1,66 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TDD_Katas_BuyHarryPotterBooks
 {
     public class CalculatorPrice
     {
-        const double OneBookPrice = 100;
-        const double DISCOUNTS_5 = 0.05;
-        const double DISCOUNTS_10 = 0.1;
-        const double DISCOUNTS_20 = 0.2;
-        const double DISCOUNTS_25 = 0.25;
-
-        public double BuyBooksPrice(List<int> BooksNumbers)
+        private const double OneBookPrice = 100;
+        private static Dictionary<int, double> DISCOUNTS = new Dictionary<int, double>()
         {
+            {2, 0.05 },
+            {3, 0.1 },
+            {4, 0.2 },
+            {5, 0.25 },
+        };
+
+        public double BuyBooksPrice(IList<int> booksNumbers)
+        {
+            return CalculatorTotalPrice(booksNumbers);
+        }
+
+        private static double CalculatorTotalPrice(IList<int> booksNumbers)
+        {
+            return Discounts(booksNumbers) +
+                NoDiscounts(booksNumbers);
+        }
+
+        private static double Discounts(IEnumerable<int> booksNumbers)
+        {
+            int differentEpisode = 0;
             double price = 0;
-            
-            CalculatorTotalPrice(BooksNumbers, ref price);
 
+            foreach (int booksNumber in booksNumbers)
+            {
+                if (booksNumber <= 0) continue;
+
+                price += OneBookPrice;
+                differentEpisode++;
+            }
+
+            return DiscountsPrice(differentEpisode, price);
+        }
+
+        private static double DiscountsPrice(int differentEpisode, double price)
+        {
+            if (DISCOUNTS.ContainsKey(differentEpisode))
+            {
+                price = price * (1 - DISCOUNTS[differentEpisode]);
+            }
+            //買5本以上不同集數的書，一律以5集折扣計算
+            if (differentEpisode >= 6)
+            {
+                price = price * (1 - DISCOUNTS[5]);
+            }
             return price;
         }
 
-        private static void CalculatorTotalPrice(List<int> BooksNumbers, ref double price)
+        private static double NoDiscounts(IEnumerable<int> booksNumbers)
         {
-            int DifferentEpisode = 0;
-
-            for (int i = 0; i < BooksNumbers.Count; i++)
-            {
-                if (BooksNumbers[i] > 0)
-                {
-                    price += OneBookPrice;
-                    DifferentEpisode++;
-                }
-            }
-
-            price = CalculatorDiscounts(price, DifferentEpisode);
-
-            for (int i = 0; i < BooksNumbers.Count; i++)
-            {
-                if (BooksNumbers[i] > 1)
-                {
-                    price += ( BooksNumbers[i] - 1 ) * OneBookPrice;                    
-                }
-            }
-        }
-
-        private static double CalculatorDiscounts(double price, int DifferentEpisode)
-        {
-            switch (DifferentEpisode)
-            {
-                case 2:
-                    price = price * (1 - DISCOUNTS_5);
-                    break;
-                case 3:
-                    price = price * (1 - DISCOUNTS_10);
-                    break;
-                case 4:
-                    price = price * (1 - DISCOUNTS_20);
-                    break;
-                case 5:
-                    price = price * (1 - DISCOUNTS_25);
-                    break;
-                default:
-                    if (DifferentEpisode >= 6)
-                    {
-                        price = price * (1 - DISCOUNTS_25);
-                    }
-                    break;
-            }
-            return price;
+            return booksNumbers
+                .Where(booksNumber => booksNumber > 1)
+                .Sum(booksNumber =>
+                        (booksNumber - 1) * OneBookPrice);
         }
     }
 }
