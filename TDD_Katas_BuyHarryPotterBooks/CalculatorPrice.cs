@@ -5,8 +5,8 @@ namespace TDD_Katas_BuyHarryPotterBooks
 {
     public class CalculatorPrice
     {
-        private const double OneBookPrice = 100;
-        private static Dictionary<int, double> DISCOUNTS = new Dictionary<int, double>()
+        private const double ONEBOOKPRICE = 100;
+        private readonly Dictionary<int, double> DISCOUNTS = new Dictionary<int, double>()
         {
             {1, 0 },
             {2, 0.05 },
@@ -15,29 +15,34 @@ namespace TDD_Katas_BuyHarryPotterBooks
             {5, 0.25 },
         };
 
-        public double BuyBooksPrice(IList<int> booksNumbers)
+        private IList<int> _books = null;
+
+        public CalculatorPrice(IList<int> books)
         {
-            return CalcDiscountsPrice(booksNumbers) +
-                    NotDiscounts(booksNumbers);
+            this._books = books;
         }
 
-        private static double CalcDiscountsPrice(IList<int> booksNumbers)
+        public double BuyBooksPrice()
         {
-            int diffBooksCount = booksNumbers.Count(s => s >= 1);
-            double price = 0;
+            return DiscountsPrice() + NotDiscountsPrice();
+        }
 
-            if (diffBooksCount != 0)
+        private double DiscountsPrice()
+        {
+            var differentBooksCount = _books.Count(s => s >= 1);
+            double discountsPrice = 0;
+
+            if (differentBooksCount != 0)
             {
-                price = diffBooksCount * OneBookPrice
-                        * (1 - DISCOUNTS[diffBooksCount > 5 ? 5 : diffBooksCount]);
+                discountsPrice = differentBooksCount * ONEBOOKPRICE
+                        * (1 - DISCOUNTS[differentBooksCount > 5 ? 5 : differentBooksCount]);
             }
-            return price;
+            return discountsPrice;
         }
 
-        private static double NotDiscounts(IList<int> booksNumbers)
+        private double NotDiscountsPrice()
         {
-            return (OneBookPrice *
-                    booksNumbers
+            return (ONEBOOKPRICE * _books
                         .Where(booksNumber => booksNumber > 1)
                         .Sum(booksNumber => (booksNumber - 1)));
         }
